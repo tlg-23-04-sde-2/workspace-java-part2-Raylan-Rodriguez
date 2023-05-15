@@ -8,7 +8,7 @@ import java.util.List;
 class DuckRacer {
     private final int id;
     private String name;
-    private final Collection<Reward> rewards = new ArrayList<>();
+    private final List<Reward> rewards = new ArrayList<>();
 
     // constructors
     public DuckRacer(int id, String name) {
