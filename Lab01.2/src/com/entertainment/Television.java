@@ -1,5 +1,7 @@
 package com.entertainment;
 
+import java.util.Objects;
+
 public class Television {
     private String brand;
     private int volume;
@@ -43,6 +45,15 @@ public class Television {
         this.volume = volume;
     }
 
+    public int hashCode() {
+        // poorly written hash function, because it easily yiedls "hash collision"
+        // a "hash collision" is when different objects hash to the same value (dumb luck)
+        //return getBrand().length() + getVolume();
+
+        // delegate to Objects.hash(), which uses a "good" hash function to minimize collisions
+        return Objects.hash(getBrand(), getVolume());
+    }
+
     @Override
     public boolean equals(Object obj) {
         boolean result = false;
@@ -51,8 +62,8 @@ public class Television {
             // downcast 'obj' to more specific Television, so we can call Television methods.
             Television other = (Television) obj;
             // do the checks: business equality is defined
-            result = this.getBrand().equals(other.getBrand()) &&
-                    this.getVolume() == other.getVolume();
+            result = Objects.equals(this.getBrand(), other.getBrand()) &&  //null safe check
+                    this.getVolume() == other.getVolume();    //primitives cant be null so we are safe
         }
         return result;
     }
