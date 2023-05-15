@@ -29,7 +29,7 @@ class InMemoryCatalogTest {
         //testFindByKeyword();
          //testFindByCategory();
         //testSize();
-        //testGetAll();
+        testGetAll();
         //testSelfTittleAlbums();
         //testItemsAtSpecifiedPrice();
         //testGenreCount();
@@ -38,7 +38,7 @@ class InMemoryCatalogTest {
         //testAveragePriceOfGenre();
         //testIsAllGreaterOrEqualTen();
         //testDoWeSellItem();
-        testAllPopItemsInNaturalOrder();
+        //testAllPopItemsInNaturalOrder();
     }
 
     private static void testAllPopItemsInNaturalOrder() {
@@ -126,8 +126,9 @@ class InMemoryCatalogTest {
     private static void testGetAll() {
         InMemoryCatalog catalog = new InMemoryCatalog();
 
-        Collection<MusicItem> items = catalog.getAll();
-        dump(items);
+        Collection<MusicItem> allItems = catalog.getAll();
+        //allItems.clear();  //No, throws Unsupported operationException
+        dump(allItems);
     }
     //helper method to dump a collection<MusicItem> "Vertically"
     private static void dump(Collection<MusicItem> items) {
