@@ -10,8 +10,7 @@ package com.entertainment.catalog;
 
 import static org.junit.Assert.*;
 
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 
 import org.junit.Test;
 import com.entertainment.Television;
@@ -21,14 +20,46 @@ import javax.swing.*;
 public class CatalogTest {
 
     @Test
-    public void findByBrands_shouldReturnPopulatedMap_whenBrandsPassed() {
-        Map<String,Collection<Television>> tvMap = Catalog.findByBrands("Sony", "No-Matches");
+    public void getInventory_testingIf_itcouldFindTheLoudestTelevision_inCatalog() {
+       List<Television> result = new ArrayList<>(Catalog.getInventory());
+       int compareToVolume = result.get(0).getVolume();
+        for(int v = 1; v < result.size(); v++) {
+            if(result.get(v).getVolume() > compareToVolume) {
+                compareToVolume = result.get(v).getVolume();
+            }
+        }
+        assertEquals(94,compareToVolume);
+    }
 
-        assertEquals(2,tvMap.size());
+    @Test
+    public void getInventory_retrievesTheInventory_andRemovesTheDuplicates() {
+        Set<Television> noDuplicates = new HashSet<>(Catalog.getInventory());
+        assertEquals(23, noDuplicates.size());
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void getInventory_readOnlyCollection_throwsUnsupportedOperationException() {
+        Collection<Television> result = Catalog.getInventory();
+        result.add(new Television("Toshiba", 0));
+        result.remove(new Television("Zenith", 0));
+        result.clear();
+    }
+
+    @Test
+    public void getInventory_returnsTheComplete_Collection_shouldReturn30() {
+        Collection<Television> result = Catalog.getInventory();
+        assertEquals(30, result.size());
+    }
+
+    @Test
+    public void findByBrands_shouldReturnPopulatedMap_whenBrandsPassed() {
+        Map<String, Collection<Television>> tvMap = Catalog.findByBrands("Sony", "No-Matches");
+
+        assertEquals(2, tvMap.size());
         //check the "sony" row.
         Collection<Television> sonyTvs = tvMap.get("Sony");
         assertEquals(7, sonyTvs.size());
-        for(Television tv : sonyTvs) {
+        for (Television tv : sonyTvs) {
             assertEquals("Sony", tv.getBrand());
         }
         //check the no-Matches row
@@ -38,7 +69,7 @@ public class CatalogTest {
 
     @Test
     public void findByBrands_shouldReturnEmptyMap_whenNoBrandsPassed() {
-        Map<String,Collection<Television>> tvMap = Catalog.findByBrands();
+        Map<String, Collection<Television>> tvMap = Catalog.findByBrands();
         //dont need both, jay prefers isEmpty()
         assertEquals(0, tvMap.size());
         assertTrue(tvMap.isEmpty());

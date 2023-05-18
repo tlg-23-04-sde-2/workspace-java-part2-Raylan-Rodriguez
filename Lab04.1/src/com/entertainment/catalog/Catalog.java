@@ -32,7 +32,7 @@ public class Catalog {
         //return value
         Collection<Television> result = new ArrayList<>();
 
-        //TODO - implement the finding of the matich Televisions
+        // implement the finding of the matching Televisions
         for(Television tv : catalog) {
             if(tv.getBrand().equals(brand)) {
                 result.add(tv);
@@ -49,10 +49,9 @@ public class Catalog {
     public static Map<String, Collection<Television>> findByBrands(String... brands) {
         Map<String, Collection<Television>> result = new HashMap<>();
 
-        //TODO- see the "TIP" in Jay's classroom whiteboard
-        for (Map.Entry<String, Collection<Television>> entry : result.entrySet()) {
-            String key = entry.getKey();
-            Collection<Television> value = entry.getValue();
+        for (String brand : brands) {
+            Collection<Television> matches = findByBrand(brand);
+            result.put(brand,matches);
 
         }
         return result;
@@ -70,7 +69,7 @@ public class Catalog {
      *  This is an all-static utility class, not the java.util.Collection interface.
      */
     public static Collection<Television> getInventory() {
-        return catalog;
+        return Collections.unmodifiableCollection(catalog);
     }
 
     /*

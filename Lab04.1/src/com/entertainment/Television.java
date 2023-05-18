@@ -40,8 +40,7 @@ public class Television
         setDisplay(display);
     }
 
-    public Television(String brand, int volume, DisplayType display)
-            throws IllegalArgumentException {
+    public Television(String brand, int volume, DisplayType display) throws IllegalArgumentException {
         this(brand, volume);
         setDisplay(display);
     }
