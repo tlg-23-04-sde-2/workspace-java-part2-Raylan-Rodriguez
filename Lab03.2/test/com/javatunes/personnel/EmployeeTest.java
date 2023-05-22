@@ -13,8 +13,20 @@ public class EmployeeTest {
     private Employee emp2;
     @Before
     public void setUp() {
-        emp1 = new SalariedEmployee("Lucas", Date.valueOf("2000-01-01"));
-        emp2 = new SalariedEmployee("Lucas", Date.valueOf("2000-01-01"));
+        emp1 = getEmployee();
+        emp2 = getEmployee();
+//        emp1 = new DummyEmployee("Lucas", Date.valueOf("2000-01-01"));
+//        emp2 = new DummyEmployee("Lucas", Date.valueOf("2000-01-01"));
+    }
+
+    private Employee getEmployee() {
+        return new Employee("Lucas", Date.valueOf("2000-01-01")) {
+            @Override
+            public double pay() {return 0;}
+
+            @Override
+            public double payTaxes() {return 0;}
+        };
     }
 
     @Test
@@ -38,4 +50,23 @@ public class EmployeeTest {
         assertEquals(emp1,emp2); //does an equals() check for objects
         assertTrue(emp1.equals(emp2)); //alternative assertion;
     }
+
+    // Member-Level Named inner classes
+    private class DummyEmployee extends Employee {
+
+        public DummyEmployee(String name, Date hireDate) {
+            super(name, hireDate);
+        }
+
+        @Override
+        public double pay() {
+            return 0;
+        }
+
+        @Override
+        public double payTaxes() {
+            return 0;
+        }
+    }
+
 }
