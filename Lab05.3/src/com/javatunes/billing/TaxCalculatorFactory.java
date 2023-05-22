@@ -7,7 +7,7 @@ public class TaxCalculatorFactory {
     /*
      * Optional Challenge:
      * Implement a simple cache of TaxCalculator objects.
-     * -if the cache contains the desired TaxCalculotor, return it from the cache
+     * -if the cache contains the desired TaxCalculator, return it from the cache
      * -if not create new one, put it in the cache, and then return it.
      *
      * Implementation note:
