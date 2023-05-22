@@ -38,9 +38,10 @@ import java.util.*;
  *   17       17    Dom        1    DEBIT_CARD
  */
 
-class Board {
+public class Board {
     private final Map<Integer, String> studentIdMap = loadStudentIdMap();
     private final Map<Integer, DuckRacer> racerMap = new TreeMap<>();
+
 
     /*
      * Updates the board (racerMap) by Making a Duckracer "win"
@@ -51,8 +52,7 @@ class Board {
         DuckRacer racer = null;
         if (racerMap.containsKey(id)) { // id exists in racerMap, so get DuckRacer next to it
             racer = racerMap.get(id);
-        }
-        else {                                      // id not present, create new DuckRacer, put it in map
+        } else {                                      // id not present, create new DuckRacer, put it in map
             racer = new DuckRacer(id, studentIdMap.get(id));
             racerMap.put(id, racer);
         }
@@ -62,18 +62,27 @@ class Board {
     //T render thid data pretty or display to the end user.
     // see java part 1 session 5 formatted output
     public void show() {
-        Collection<DuckRacer> racers = racerMap.values();
-        System.out.println("Duck Race Results");
-        System.out.println("==================\n");
+        // if racerMap is empty, print "currently no result to show" otherwise,
+        // show the data
+        if (racerMap.isEmpty()) {
+            System.out.println("There are Currently no results to show.");
+            System.out.println("=======================================");
+            System.out.println();
+        } else {
+            Collection<DuckRacer> racers = racerMap.values();
+            System.out.println("Duck Race Results");
+            System.out.println("==================\n");
 
-        System.out.println( "id   name   wins   rewards");
-        System.out.println("--    ----   ----   -------");
+            System.out.println("id   name   wins   rewards");
+            System.out.println("--    ----   ----   -------");
 
-        for (DuckRacer racer : racers) {
-            System.out.printf("%s   %s   %s   %s\n",
-                    racer.getId(), racer.getName(),racer.getWins(), racer.getRewards());   //toString() automatically called
+            for (DuckRacer racer : racers) {
+                System.out.printf("%2d   %s  %s  %s\n",
+                        racer.getId(), racer.getName(), racer.getWins(), racer.getRewards());   //toString() automatically called
+            }
         }
     }
+
 
     private Map<Integer, String> loadStudentIdMap() {
         Map<Integer, String> idMap = new HashMap<>();
