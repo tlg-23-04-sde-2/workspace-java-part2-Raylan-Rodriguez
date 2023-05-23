@@ -9,6 +9,7 @@
 package com.javatunes.catalog;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 // OF COURSE THIS CLASS DOESN'T COMPILE
 // Your first job is to fulfill the contract that this class has signed.
@@ -63,6 +64,11 @@ public class InMemoryCatalog implements Catalog {
 
     @Override
     public Collection<MusicItem> findByCategory(MusicCategory category) {
+        return catalogData.stream()
+                .filter(item -> item.getMusicCategory().equals(category))
+                .collect(Collectors.toList());
+
+        /*
         Collection<MusicItem> result = new ArrayList<>();
         for (MusicItem item : catalogData) {
             if (item.getMusicCategory().equals(category)) {
@@ -70,6 +76,7 @@ public class InMemoryCatalog implements Catalog {
             }
         }
         return result;
+         */
     }
 
     @Override
