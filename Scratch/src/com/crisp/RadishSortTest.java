@@ -34,13 +34,8 @@ class RadishSortTest {
         dump(radishes);
         System.out.println();
 
-        System.out.println("sort by guysOnTop descending, via anonymous Comparator");
-        radishes.sort(new Comparator<Radish>() {
-            @Override
-            public int compare(Radish r1, Radish r2) {
-                return Integer.compare(r2.getGuysOnTop(), r1.getGuysOnTop());
-            }
-        });
+        System.out.println("sort by guysOnTop, via lambda");
+        radishes.sort( (r1,r2) -> Integer.compare(r1.getGuysOnTop(),r2.getGuysOnTop()));
         dump(radishes);
         System.out.println();
     }
