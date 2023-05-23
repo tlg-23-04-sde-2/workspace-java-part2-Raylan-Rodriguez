@@ -7,12 +7,12 @@ import java.util.Scanner;
 
 /*
  * apllication controller
- * sets up the system clasess, orchestrates overall flow of the application/
+ * sets up the system objects, orchestrates overall flow of the application/
  * Prompts user for inputs and "forwards" those inputs into the system (back end)
  */
 public class DuckRaceApp {
     private final Scanner scanner = new Scanner(System.in); //reads inputs from console
-    private final Board board = new Board();
+    private final Board board = Board.getInstance();
     private static final int MIN = 1;
     private static final int MAX = 13;
 
